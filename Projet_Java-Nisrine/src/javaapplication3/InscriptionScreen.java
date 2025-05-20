@@ -4,6 +4,8 @@ import java.awt.*;
 import java.sql.*;
 import java.time.LocalDate;
 import javax.swing.Timer;
+import javax.mail.MessagingException;
+
 
 public class InscriptionScreen extends JPanel {
     public InscriptionScreen() {
@@ -144,6 +146,23 @@ Timer checkResponseTimer = new Timer(4000, e -> {
             if (!password.equals(confirmPassword)) {
                 messageLabel.setForeground(Color.RED);
                 messageLabel.setText("Les mots de passe ne correspondent pas.");
+                return;
+            }
+            
+            String code = String.valueOf((int) (Math.random() * 900000 + 100000)); // 6 chiffres
+            try {
+                EmailSender.sendVerificationEmail(email, code);
+                String userCode = JOptionPane.showInputDialog(null, "Un code de vérification a été envoyé à votre email. Veuillez le saisir ici :");
+
+                if (userCode == null || !userCode.equals(code)) {
+                    messageLabel.setForeground(Color.RED);
+                    messageLabel.setText("Code de vérification incorrect. Inscription annulée.");
+                    return;
+                }
+            } catch (MessagingException ex) {
+                messageLabel.setForeground(Color.RED);
+                messageLabel.setText("Erreur lors de l'envoi de l'e-mail de vérification.");
+                ex.printStackTrace();
                 return;
             }
 
