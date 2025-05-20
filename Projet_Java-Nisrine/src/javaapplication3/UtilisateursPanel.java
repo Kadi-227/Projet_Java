@@ -68,6 +68,17 @@ public class UtilisateursPanel extends RoundedPanel {
         searchButton.setBounds(520,100,30,30);
         add(searchButton);
         
+        // ➕ Bouton Recherche Avancée
+        RoundedButton rechercheAvanceeButton = new RoundedButton("Recherche Avancée");
+        rechercheAvanceeButton.setBounds(560, 100, 160, 30); // À gauche du champ de recherche
+        add(rechercheAvanceeButton);
+
+        rechercheAvanceeButton.addActionListener(e -> {
+            JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+            RechercheEtudiantDialog dialog = new RechercheEtudiantDialog(parentFrame, this);
+            dialog.setVisible(true);
+        });
+        
         // Email
         emailField.setBounds(165, 150, 450, 30); 
         add(emailField);
@@ -322,4 +333,11 @@ public class UtilisateursPanel extends RoundedPanel {
             ex.printStackTrace();
         }
     }
+    
+    public void rechercherEtudiantParCNE(String cne) {
+    searchField.setText(cne);
+    nomField.setText("");
+    prenomField.setText("");
+    rechercherEtudiant();
+}
 }
