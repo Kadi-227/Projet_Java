@@ -1,4 +1,0 @@
-alaedesignlapartieréservations.RoundedTextField
-javaapplication3.RoundedTextField
-alaedesignlapartieréservations.RoundedTextField$1
-javaapplication3.RoundedTextField$1
